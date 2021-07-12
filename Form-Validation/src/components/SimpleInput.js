@@ -1,4 +1,4 @@
-import { useState} from "react";
+
 import useInput from "../hooks/use-input";
 const SimpleInput = (props) => {
 
@@ -32,12 +32,12 @@ const SimpleInput = (props) => {
 
   const formSubmitHandler = event => {
     event.preventDefault();
-
+    console.log(enteredName)
    
-    if (!enteredNameIsValid || !enteredEmailIsValid) {
+    if (!formIsValid) {
       return
     }
-    console.log(enteredName)
+    
     resetNameInput()
     resetEmailInput()
   }
@@ -63,7 +63,7 @@ const SimpleInput = (props) => {
           onChange={emailChangeHandler}
           onBlur={emailBlurHandler}
           value={enteredEmail} />
-        {emailInputHasError && <p className="error-text">Email must include @!</p>}
+        {emailInputHasError && <p className="error-text">Email must include @!</p>} 
 
       </div>
       <div className="form-actions">
