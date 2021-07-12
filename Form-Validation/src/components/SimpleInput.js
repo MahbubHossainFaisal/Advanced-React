@@ -11,12 +11,19 @@ const SimpleInput = (props) => {
     reset: resetNameInput
   } = useInput(value => value.trim() !== '')
 
-  
+  const {
+    enteredName: enteredEmail,
+    valueIsValid: enteredEmailIsValid,
+    hasError: emailInputHasError,
+    valueChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+    reset: resetEmailInput
+  } = useInput(value => value.includes('@'))
 
 
   let formIsValid = false
 
-  if(enteredNameIsValid){
+  if(enteredNameIsValid && enteredEmailIsValid){
     formIsValid = true;
   } else{
     formIsValid = false;
@@ -27,16 +34,18 @@ const SimpleInput = (props) => {
     event.preventDefault();
 
    
-    if (!enteredNameIsValid) {
+    if (!enteredNameIsValid || !enteredEmailIsValid) {
       return
     }
     console.log(enteredName)
     resetNameInput()
+    resetEmailInput()
   }
 
   
 
   const nameInputClasses = nameInputHasError ? 'form-control invalid' : 'form-control'
+  const emailInputClasses = emailInputHasError ? 'form-control invalid' : 'form-control'
   return (
     <form onSubmit={formSubmitHandler}>
       <div className={nameInputClasses}>
@@ -47,6 +56,15 @@ const SimpleInput = (props) => {
            value={enteredName} />
         {nameInputHasError && <p className="error-text">Name must not be empty!</p>}
           
+      </div>
+      <div className={emailInputClasses}>
+        <label htmlFor='email'>Your Email</label>
+        <input type='text' id='emal'
+          onChange={emailChangeHandler}
+          onBlur={emailBlurHandler}
+          value={enteredEmail} />
+        {emailInputHasError && <p className="error-text">Email must include @!</p>}
+
       </div>
       <div className="form-actions">
         <button disabled={!formIsValid}>Submit</button>
