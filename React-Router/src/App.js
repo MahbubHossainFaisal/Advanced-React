@@ -1,5 +1,5 @@
 
-import { Route } from 'react-router-dom';
+import { Route,Switch } from 'react-router-dom';
 import Header from './components/Header';
 import ProductDetails from './pages/ProductDetails';
 import Products from './pages/Products';
@@ -13,15 +13,17 @@ function App() {
         <Header />
        </header>
        <main>
-        <Route path='/welcome'>
-          <Welcome />
-        </Route>
-        <Route path='/products'>
-          <Products />
-        </Route>
-        <Route path='/product-details/:product_id'>
-          <ProductDetails />
-        </Route>
+        <Switch>
+          <Route path='/welcome'>
+            <Welcome />
+          </Route>
+          <Route path='/products' exact>
+            <Products />
+          </Route>
+          <Route path='/products/:product_id'>
+            <ProductDetails />
+          </Route>
+        </Switch>
        </main>
        <footer>
 
