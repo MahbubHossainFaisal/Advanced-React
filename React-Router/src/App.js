@@ -1,18 +1,28 @@
 
-import {Route} from 'react-router-dom'
-import Welcome from './pages/Welcome' 
+import { Route } from 'react-router-dom';
+import Header from './components/Header';
 import Products from './pages/Products';
+import Welcome from './pages/Welcome';
 
 
 function App() {
   return (
     <div>
-      <Route path='/welcome'>
-        <Welcome />
-      </Route>
-      <Route path='/products'>
-        <Products />
-      </Route>
+      <header>
+        <Header />
+       </header>
+       <main>
+        <Route path='/welcome'>
+          <Welcome />
+        </Route>
+        <Route path='/products'>
+          <Products />
+        </Route>
+       </main>
+       <footer>
+         
+       </footer>
+      
     </div>
   );
 }
