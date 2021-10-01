@@ -5,11 +5,8 @@ import ProductDetails from './pages/ProductDetails';
 import Products from './pages/Products';
 import Welcome from './pages/Welcome';
 
-
-function App() {
-  return (
-    <div>
-      <header>
+/*
+ <header>
         <Header />
        </header>
        <main>
@@ -31,7 +28,52 @@ function App() {
        <footer>
 
        </footer>
-      
+
+*/
+
+import React,{useReducer,useEffect} from 'react'
+
+
+const initialState = {
+  loading: true,
+  post: {},
+  error: ''
+}
+
+const reducer = (state,action) =>{
+  switch(action.type){
+    case 'success':
+      return {
+        loading:false,
+        post: action.result,
+        error: '',
+      }
+    case 'failure':
+      return{
+        loading: false,
+        post:{},
+        error: 'There was some error while fetching!'
+      }
+      default:
+        return state
+  }
+}
+function App() {
+  const [state,dispatch] = useReducer(reducer,initialState)
+
+  useEffect(()=>{
+    
+    fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(response => response.json())
+    .then(data => dispatch({type:'success', result:data}))
+    .catch(()=>{
+      dispatch({type:'failure'})
+    })
+  },[])
+  return (
+    <div>
+     {state.loading ? 'loading...' : state.post.title}
+     {state.error ? state.error : null}
     </div>
   );
 }
